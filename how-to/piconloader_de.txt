@@ -1,0 +1,299 @@
+﻿+----------------------------------------------------------------------------+
+|   ____  _                 _                    _                           |
+|  |  _ \(_) ___ ___  _ __ | |    ___   __ _  __| | ___ _ __                 |
+|  | |_) | |/ __/ _ \| '_ \| |   / _ \ / _` |/ _` |/ _ \ '__|                |
+|  |  __/| | (_| (_) | | | | |__| (_) | (_| | (_| |  __/ |                   |
+|  |_|   |_|\___\___/|_| |_|_____\___/ \__,_|\__,_|\___|_|                   |
+|                                                                            |
+|  The automatic channel picon loading script for the Vu+ Duo2 receiver      |
+|                                                                            |
++----------------------------------------------------------------------------+
+
+Inhalt:
+
+    1. Vorwort
+    2. Installation
+    3. Funktionsweise
+    4. Picons je nach Uhrzeit austauschen
+    5. Picons je nach Monat austauschen
+    6. Cronjob einrichten
+    7. Bekannte Nebeneffekte
+
+1. Vorwort
+
+    Dieses Skript habe ich für meinen Kumpel geschrieben, da er mich fragte,
+    ob es denn möglich sei dafür zu sorgen, dass das entsprechende Picon zum
+    Sender zeitgesteuert angezeigt wird.
+
+    Das Skript wurde auf einem "Vu+ Duo2" Receiver entwickelt, könnte jedoch
+    auch auf verwandten Systemen laufen, aber das habe ich nicht getestet. Der
+    Code dahinter ist nicht gerade der schönste, aber er funktioniert und kann
+    logischerweise noch verbessert sowie angepasst werden.
+
+    Das PiconLoader-Projekt wurde unter der MIT-Lizenz veröffentlicht. Diese
+    kann direkt im Skript oder unter
+
+        www.opensource.org/licenses/MIT
+
+    eingesehen werden.
+
+    Für die Installation und Einrichtung sind einige Vorkenntnisse notwendig.
+    Wer dieses Projekt verwenden möchte sollte die Grundlagen von Linux sowie
+    der Shell kennen und in der Lage sein, mit dem "vi"-Editor Dateien zu edi-
+    tieren.
+
+    Ich möchte noch hinzufügen, dass man auf der Kommandozeile durch die Ein-
+    gabe falscher Befehle bzw. Parametern Schaden anrichten kann, von daher
+    sollte man vorsichig vorgehen und verstehen, was eigentlich macht ("think
+	before you type").
+
+    Die entsprechenden Namen (die sog. "Kanalreferenzen") für die jeweiligen
+    Picons können mit dem Programm dreamboxEDIT ermittelt bzw. ausgelesen
+    werden.
+
+2. Installation
+
+    2.1 Archiv auf die Festplatte im Receiver kopieren
+
+        Zunächst muss das Archiv, in dem sich der PiconLoader befindet, auf
+        den Receiver kopiert werden.
+
+        Hier in der Readme-Datei wird das Archiv einfach nur "piconldr.tar"
+        genannt, das eigentliche Archiv hat noch die Versionsnummer im Datei-
+        namen, zum Beispiel "piconloader-1.0.3.tar". Somit muss die Readme-
+        Datei bei einer neuen Version nicht nochmal angepasst werden.
+
+        2.1.1 Windows-Systeme
+
+            Die Datei kann mit dem kostenlosen PSCP-Tool auf den Receiver
+            kopiert werden:
+
+                www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
+            Nehmen wir an, das "piconldr.tar" Archiv liegt in "C:\vu" und der
+            Receiver hat die IP-Adresse 192.168.1.1, dann müsste der Befehl
+            wie folgt aussehen:
+
+                pscp.exe -scp C:\vu\piconldr.tar root@192.168.1.1:/media/hdd/
+
+        2.1.2 Unixoide Systeme (Linux, BSD, MacOSX)
+
+            Diese Systeme stellen i. d. R. von Haus aus das "scp" Tool zur
+            Verfügung, mit dem die Datei übertragen werden kann.
+
+            Nehmen wir an, das "piconldr.tar" Archiv liegt in "/home/user/"
+            und der Receiver hat die IP-Adresse 192.168.1.1, dann müsste der
+            Befehl wie folgt aussehen:
+
+                scp /home/user/piconldr.tar root@192.168.1.1:/media/hdd/
+
+    2.2 SSH-Verbindung mit dem Receiver herstellen
+
+        Nachdem das Archiv auf die Festplatte des Receivers kopiert wurde muss
+        als nächstes eine SSH-Verbindung zum Gerät hergestellt werden.
+
+        2.2.1 Windows-Systeme
+
+            Unter Windows ist das ebenfalls kostenlose Tool PuTTY erforder-
+            lich, um eine solche Verbindung herzustellen:
+
+                www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
+        2.2.2 Unixoide Systeme (Linux, BSD, MacOSX)
+
+            Diese Systeme stellen i. d. R. von Haus aus das "ssh" Tool zur
+            Verfügung, mit dem die Verbindung hergestellt werden kann. In die-
+            sem Beispiel:
+
+                ssh root@192.168.1.1
+
+    2.3 Archiv auf dem Receiver entpacken
+
+        Wenn dann die SSH-Verbindung steht, muss das Archiv entpackt werden.
+        Dazu muss zunächst auf die Festplatte gewechselt werden:
+
+            cd /media/hdd/
+
+        Dort liegt das kopierte Archiv. Mit dem folgenden Befehl wird dieses
+        entpackt.
+
+            tar xvf piconldr.tar
+
+        Danach existiert das Verzeichnis "/media/hdd/piconloader", welches die
+        erforderlichen Daten enthält (zunächst nur das eigentliche Skript und
+        leere Unterordner, die Picons folgen später).
+
+        Das Archiv selbst kann nun wieder gelöscht werden.
+
+            rm piconldr.tar
+
+    2.4 Skript als ausführbar markieren
+
+        Damit das Skript auch ausgeführt werden kann ist es erforderlich, die-
+        ses als ausführbar zu markieren. Das sollte zwar schon der Fall sein,
+        aber falls das aus unerfindlichen Gründen nicht mehr so ist, kann man
+        dies wie folgt tun.
+
+        Wenn das Skript schon als ausführbar markiert ist und man dennoch den
+        folgenden Befehl ausführt hat dies keinerlei Auswirkungen bzw. Folgen.
+
+            chmod +x ./piconloader/piconloader.sh
+
+3. Funktionsweise
+
+    Das Skript kann nach einer gewissen Uhrzeit das Sender-Picon austauschen,
+    natürlich auch mehrere Picons zur gleichen Zeit (beispielsweise, wenn
+    einige Sender gleichzeitig das Logo ändern).
+
+    Nehmen wir als Beispiel den fiktiven Sender BlahTV, was ab 21:00 h zu
+    BlubbTV und um 05:45 h wieder zu BlahTV wird.
+
+    Dies funktioniert auch monatlich, beispielsweise wenn ein Sender im Dezem-
+    ber ein Weihnachts-Logo verwendet.
+
+    Sämtliche Picons, die standardmäßig verwendet werden liegen im Verzeichnis
+    "/usr/share/enigma2/picon". An diesen muss nichts verändert werden.
+
+    Man hinterlegt sowohl (als Beispiel) das BlahTV als auch das BlubbTV Sen-
+    er-Logo in einem bestimmten Unterverzeichnis. Das Skript ermittelt anhand
+    dieser Unterverzeichnisse, wann es welches Picon austauschen muss. Darauf
+    wird später näher eingegangen.
+
+    Wird das Skript zum ersten Mal nach dem Start des Receivers gestartet,
+    sieht der Ablauf wie folgt aus:
+
+        1. Prüfe nach viertelstündlich wechselnden Picons und lade diese.
+        2. Prüfe nach montalich wechselnden Picons und lade diese ebenfalls.
+        3. Erstelle temporäre PiconLoader-Datei (wird bei jedem Neustart wie-
+           der verworfen).
+
+    Wenn das Skript bereits gelaufen ist und wieder angestoßen wird:
+
+        1. Existiert die temporäre PiconLoader-Datei?
+            - Wenn nicht, gehe vor wie oben beschrieben.
+            - Ansonsten fahre mit Punkt 2 fort.
+        2. Prüfe ob die aktuelle Minute in den Viertelstunden-Zyklus passt
+           (beispielsweise 08:00, 08:15, 08:30, 08:45, ...).
+            - Wenn nicht, beende das Skript.
+            - Ansonsten fahre mit Punkt 3 fort.
+        3. Prüfe nach viertelstündlich wechselnden Picons und lade diese.
+        4. Prüfe nach montalich wechselnden Picons und lade diese ebenfalls.
+
+4. Picons je nach Uhrzeit austauschen
+
+        Der PiconLoader erlaubt (wie beim Absatz "Funktionsweise" erklärt) das
+        Austauschen von den Logos alle 15 Minuten, ab der vollen Stunde, d. h.
+        beispielsweise
+
+            08:00, 08:15, 08:30, 08:45, ...
+
+        Nehmen wir als Beispiel BlahTV, was ab 21:00 h zu BlubbTV und dann um
+        05:45 h wieder zu BlahTV wird.
+
+        Zunächst einmal wird das Unterverzeichnis benötigt, anhand dessen das
+        Skript ermittelt, wann es das Picon ändern soll.
+
+        Das Verzeichnis, in welchem diese Unterverzeichnisse erstellt werden
+        müssen, liegen (wenn man nach dieser Anleitung vorgegangen ist) in
+
+            /media/hdd/piconloader/qhourly
+
+        wobei "qhourly" für "quarter-hourly" steht. Dort muss nun für BlubbTV
+        das Unterverzeichnis für 21:00 h erstellt werden.
+
+            mkdir -p /media/hdd/piconloader/qhourly/21-00
+
+        Achten Sie jedoch darauf, dass Stunde und Minute im Verzeichnisnamen
+        mit einem Bindestrich und nicht mit einem Doppelpunkt getrennt sind.
+        Somit kann man den PiconLoader samt Unterverzeichnissen auch auf ein
+        Windows-System wegsichern (Doppelpunkte in Datei- oder Verzeichnisna-
+        men sind bei den Windows-Dateisystemen wie FAT32 und NTFS nicht mög-
+        lich).
+
+        Kopieren Sie dann das BlubbTV Picon in das soeben angelegte Verzeich-
+        nis, also nach
+
+            /media/hdd/piconloader/qhourly/21-00
+
+        Nun wird das Verzeichnis für 05:45 h benötigt, damit BlubbTV wie-
+        der zu BlahTV wird:
+
+            mkdir -p /media/hdd/piconloader/qhourly/05-45
+
+        Dort muss dann das entsprechende Picon für BlahTV abgelegt werden.
+
+        Das ist im Prinzip schon alles. Wichtig ist nur (logischerweise), dass
+        beide Dateien den gleichen Namen haben, im Fall von BlahTV
+
+            1_0_1_7008_436_1_C0000X_0_0_0.png
+
+         also sieht die Verzeichnisstruktur wie folgt aus:
+
+            (...)/qhourly/05-45/1_0_1_7008_436_1_C0000X_0_0_0.png
+            (...)/qhourly/21-00/1_0_1_7008_436_1_C0000X_0_0_0.png
+
+        Da die Dateien in einem unterschiedlichen Verzeichnis liegen, kommen
+        diese sich logischerweise nicht in die Quere.
+
+5. Picons je nach Monat austauschen
+
+    Das Prinzip ist das gleiche wie beim obrigen Punkt "Picons je nach Uhrzeit
+    austauschen", mit dem Unterschied, dass die Picons im Unterverzeichnis
+
+        /media/hdd/piconloader/monthly
+
+    liegen müssen. Nehmen wir hier als Beispiel das fiktive BlahTV, welches im
+    Dezember zu BlubbTV wird.
+
+    Erstellen wir zunächst das Unterverzeichnis für den Monat Dezember:
+
+        mkdir -p /media/hdd/piconloader/monthly/12
+
+    Dort muss das BlubbTV Picon (wieder mit entsprechendem Namen)
+
+        1_0_1_29_3_85_C0000X_0_0_0.png
+
+    hinkopiert werden. Im Januar soll das Sender-Logo wieder zu BlahTV
+    wechseln, also muss das Unterverzeichnis für den Monat Januar erstellt
+
+        mkdir -p /media/hdd/piconloader/monthly/01
+
+    das entsprechende Picon wieder dort hinterlegt werden.
+
+6. Cronjob einrichten
+
+    Damit das Skript beim Starten des Receivers und auch zu den konfigurierten
+    Zeiten die Picons tauscht, muss ein Cronjob eingerichtet werden.
+
+    Dazu muss die Datei "/etc/cron/crontab/root" editiert werden:
+
+        vi /etc/cron/crontabs/root
+
+    In dieser muss lediglich folgende Zeile eingefügt
+
+        * */1 * * * sh /media/hdd/piconloader/piconloader.sh
+
+    und dann die Datei gespeichert (sowie geschlossen) werden. Damit die Än-
+    derung angewendet wird ist noch folgender Befehl erforderlich:
+
+        crontab /etc/cron/crontabs/root
+
+    Somit sollte es nach dem Einschalten oder nach dem offiziellen Wechsel ei-
+    nes Sender-Logos maximal eine Minute dauern, bis das korrekte Picon darge-
+    stellt wird.
+
+    Auch wenn das Skript minütlich angestoßen wird sind bisher, selbst bei
+    mehreren HD-Aufnahmen gleichzeitig, keinerlei Probleme (Bildfehler, Ton-
+    hänger oder ähnliches) aufgetreten.
+
+    Normalerweise löst man das Ausführen eines Skripts beim Hochfahren über
+    Init-Skripte, jedoch hat dies bisher nicht funktioniert (symbolischer
+    Link in "/etc/init.d/" auf das PiconLoader-Skript), da muss man bei Gele-
+    genheit nochmal nachhaken.
+
+7. Bekannte Nebeneffekte
+
+      Wird beim Ansehen eines Senders, bei dem sich das Picon ändern soll,
+      noch das vorherige Picon angezeigt, dann kann dies durch einen Sender-
+      wechsel behoben werden.
+

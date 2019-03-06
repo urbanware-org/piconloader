@@ -1,0 +1,138 @@
+﻿+----------------------------------------------------------------------------+
+|   ____  _                 _                    _                           |
+|  |  _ \(_) ___ ___  _ __ | |    ___   __ _  __| | ___ _ __                 |
+|  | |_) | |/ __/ _ \| '_ \| |   / _ \ / _` |/ _` |/ _ \ '__|                |
+|  |  __/| | (_| (_) | | | | |__| (_) | (_| | (_| |  __/ |                   |
+|  |_|   |_|\___\___/|_| |_|_____\___/ \__,_|\__,_|\___|_|                   |
+|                                                                            |
+|  The automatic channel picon loading script for the Vu+ Duo2 receiver      |
+|                                                                            |
++----------------------------------------------------------------------------+
+
+Contents:
+
+    1. Installation
+    2. Cronjob
+    3. Usage examples
+
+1. Installation
+
+    First of all, copy the TAR archive (e. g. 'piconloader-1.0.3.tar') onto
+    the receiver. On Unix-like systems you can do that with 'scp', on Windows
+    you can use the free 'pscp' tool:
+
+        www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
+    To avoid that the script and its configuration are getting deleted after a
+    firmware update, it should be copied into the directory of the internal
+    hard disk ('/media/hdd/').
+
+    Next, connect to the device using SSH and login as root. On Unix-like
+    systems you usually do that with 'ssh', on Windows you can use PuTTY which
+    is also available for free at the website mentioned above.
+
+    Switch to the directory of the internal hard disk ('/media/hdd/'), create
+    a directory called 'piconloader' extract move the TAR archive there:
+
+        tar xfv piconloader-1.0.3.tar
+
+    This will create a new sub-directory called 'piconloader' containing the
+    script as well as further sub-directories. After that, the archive can be
+    deleted again.
+
+        rm piconloader-1.0.3.tar
+
+    Set executable flag for the script (should actually have it set, but to
+    get sure):
+
+        chmod +x ./piconloader/piconloader.sh
+
+2. Cronjob
+
+    The PiconLoader script is being triggered every minute using a cronjob
+    (using init scripts did not work before), but this does not affect the
+    performance of the device, neither when watching TV nor when doing HD
+    recordings.
+
+    Edit the crontab file '/etc/cron/crontab/root' and the following line:
+
+        * */1 * * * sh /media/hdd/piconloader/piconloader.sh
+
+    Save and close the file. After that, reload the crontab as follows:
+
+        crontab /etc/cron/crontabs/root
+
+3. Usage examples
+
+    Notice that PiconLoader uses the 24-hour time format. So, for example,
+    8 PM is equal to 20:00 h.
+
+    Let's assume the channel FooTV is on from 6:30 AM to 8:00 PM and outside
+    this time, BarTV is. In this case the quarter-hourly way (which is also
+    being used for changing picons half-hourly, three-quarter-hourly and full-
+    hourly) is required.
+
+    Get the PNG picon file of FooTV. Which name the corresponding picon must
+    have can be seen using dreamboxEDIT. For example:
+
+        1_0_1_9999_436_1_C0000X_0_0_0.png
+
+    Then, get the picon file for BarTV and rename it as the picon of FooTV
+    with a leading underscore:
+
+        _1_0_1_9999_436_1_C0000X_0_0_0.png
+
+    Now there is the following situation:
+
+        1_0_1_9999_436_1_C0000X_0_0_0.png  (picon of FooTV)
+        _1_0_1_9999_436_1_C0000X_0_0_0.png (picon of BarTV)
+
+    Copy both picons into '/media/hdd/' on the receiver (using 'scp' or
+    'pscp').
+
+    Back in the SSH session, switch to the 'piconloader' directory
+
+        cd /media/hdd/piconloader/
+
+    and create the two directories for both times inside the 'qhourly' sub-
+    directory as follows. Notice that you have to use dashes instead of
+    colons, as colons are not supported in file or directory names on FAT32
+    and NTFS file systems.
+
+        mkdir ./qhourly/06-30
+        mkdir ./qhourly/20-00
+
+    Move the picon from FooTV into the first directory:
+
+        mv /media/hdd/1_0_1_9999_436_1_C0000X_0_0_0.png ./qhourly/06-30
+
+    Then move the picon from FooTV into the second directory and rename the
+    file so it has the same name as the file from FooTV (can be done with a
+    single command):
+
+        mv /media/hdd/_1_0_1_9999_436_1_C0000X_0_0_0.png \
+           ./qhourly/20-00/1_0_1_9999_436_1_C0000X_0_0_0.png
+
+    At your television, switch to the channel where FooTV and BarTV are on.
+    If you already are watching that channel, switch to another one and back
+    again.
+
+    After one minute the corresponding picon should be loaded, depending on
+    the time. To be precise, the PNG picon file will be copied into the
+    '/usr/share/enigma2/picon' directory where all picons are stored and
+    overwrite the current one.
+
+    The daily and monthly way actually works the same, with the difference
+    that there are different directories you need to copy the files to.
+
+    For example, to change a picon on January, 3rd, the PNG picon file must
+    be copied into the 'daily' sub-directory (must also be created, of
+    course):
+
+        ./daily/01-03
+
+    To monthly change a picon, in January the corresponding directory would be
+    the following:
+
+        ./monthly/01
+

@@ -1,0 +1,54 @@
+
+README (PiconLoader)
+
+    Definition
+
+        Automatic channel logo loading script for the Vu+ Duo2 satellite
+        receiver.
+
+    Details
+
+        Some time ago, a good friend of mine who owns and uses such a Vu+ Duo2
+        satellite receiver asked me, if it was possible to change the logos
+        (called picons) of the channels in case the channel with the same
+        number changes at a certain time.
+
+        For example, on channel number 4, FooTV from 6:30 AM to 8:00 PM is on
+        and outside this time, BarTV is. Both channels use the same number,
+        but have different logos.
+
+        The PiconLoader script changes the corresponding picons at a certain
+        (user-defined) day, month or (quarter) hour.
+
+        The project has been developed and tested on a Vu+ Duo2 satellite
+        receiver, but should also work on similar devices, but there is no
+        guarantee for that.
+
+    Important notice
+
+        You need to have experience with the Linux shell, 'vi' for editing
+        files, the dreamboxEDIT tool and with the receiver itself, of course.
+        Otherwise the following how-to does not make any sense.
+
+        You should also be aware of the fact that running commands on the
+        shell of the device can lead to data loss, system crashes or even
+        cause that the device does not boot anymore.
+
+    Installation
+
+        The instructions can be found inside the 'how-to' sub-directory.
+
+    Contact
+
+        If you have any suggestions, questions, bugs to report or feedback to
+        give about the script let me know.
+
+        Please do not ask me anything about the satellite receiver (as I don't
+        have one myself) or the dreamboxEDIT software.
+
+        You can contact me by sending an email to <dev@urbanware.org>.
+
+        Due to the fact, that my projects are spare time projects, the email
+        account is not being checked for mails regularly, but usually at least
+        once a week.
+
