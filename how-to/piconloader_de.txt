@@ -45,7 +45,7 @@ Inhalt:
     Ich möchte noch hinzufügen, dass man auf der Kommandozeile durch die Ein-
     gabe falscher Befehle bzw. Parametern Schaden anrichten kann, von daher
     sollte man vorsichig vorgehen und verstehen, was eigentlich macht ("think
-	before you type").
+    before you type").
 
     Die entsprechenden Namen (die sog. "Kanalreferenzen") für die jeweiligen
     Picons können mit dem Programm dreamboxEDIT ermittelt bzw. ausgelesen

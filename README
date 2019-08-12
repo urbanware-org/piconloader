@@ -26,9 +26,10 @@ README (PiconLoader)
 
     Important notice
 
-        You need to have experience with the Linux shell, 'vi' for editing
-        files, the dreamboxEDIT tool and with the receiver itself, of course.
-        Otherwise the following how-to does not make any sense.
+        You need to have experience with the Liniux shell, 'vi' (not Vim, as
+        it is not available on the system) for editing files, the dreamboxEDIT
+        tool and with the receiver itself, of course. Otherwise the following
+        the instructions of the how-to does not make any sense.
 
         You should also be aware of the fact that running commands on the
         shell of the device can lead to data loss, system crashes or even
