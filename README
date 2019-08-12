@@ -21,8 +21,8 @@ README (PiconLoader)
         (user-defined) day, month or (quarter) hour.
 
         The project has been developed and tested on a Vu+ Duo2 satellite
-        receiver, but should also work on similar devices, but there is no
-        guarantee for that.
+        receiver, but should also work on similar devices. However, there is
+        no guarantee for that.
 
     Important notice
 
