@@ -21,7 +21,7 @@ Contents:
     the receiver. On Unix-like systems you can do that with 'scp', on Windows
     you can use the free 'pscp' tool:
 
-        www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+        https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
     To avoid that the script and its configuration are getting deleted after a
     firmware update, it should be copied into the directory of the internal
