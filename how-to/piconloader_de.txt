@@ -33,7 +33,7 @@ Inhalt:
     Das PiconLoader-Projekt wurde unter der MIT-Lizenz veröffentlicht. Diese
     kann direkt im Skript oder unter
 
-        www.opensource.org/licenses/MIT
+        https://opensource.org/licenses/MIT
 
     eingesehen werden.
 
@@ -68,7 +68,7 @@ Inhalt:
             Die Datei kann mit dem kostenlosen PSCP-Tool auf den Receiver
             kopiert werden:
 
-                www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+                https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
             Nehmen wir an, das "piconldr.tar" Archiv liegt in "C:\vu" und der
             Receiver hat die IP-Adresse 192.168.1.1, dann müsste der Befehl
