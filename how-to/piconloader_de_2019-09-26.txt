@@ -192,59 +192,58 @@ Inhalt:
 
 4. Picons je nach Uhrzeit austauschen
 
-        Der PiconLoader erlaubt (wie beim Absatz "Funktionsweise" erklärt) das
-        Austauschen von den Logos alle 15 Minuten, ab der vollen Stunde, d. h.
-        beispielsweise
+    Der PiconLoader erlaubt (wie beim Absatz "Funktionsweise" erklärt) das
+    Austauschen von den Logos alle 15 Minuten, ab der vollen Stunde, d. h.
+    beispielsweise
 
-            08:00, 08:15, 08:30, 08:45, ...
+        08:00, 08:15, 08:30, 08:45, ...
 
-        Nehmen wir als Beispiel BlahTV, was ab 21:00 h zu BlubbTV und dann um
-        05:45 h wieder zu BlahTV wird.
+    Nehmen wir als Beispiel BlahTV, was ab 21:00 h zu BlubbTV und dann um
+    05:45 h wieder zu BlahTV wird.
 
-        Zunächst einmal wird das Unterverzeichnis benötigt, anhand dessen das
-        Skript ermittelt, wann es das Picon ändern soll.
+    Zunächst einmal wird das Unterverzeichnis benötigt, anhand dessen das
+    Skript ermittelt, wann es das Picon ändern soll.
 
-        Das Verzeichnis, in welchem diese Unterverzeichnisse erstellt werden
-        müssen, liegen (wenn man nach dieser Anleitung vorgegangen ist) in
+    Das Verzeichnis, in welchem diese Unterverzeichnisse erstellt werden
+    müssen, liegen (wenn man nach dieser Anleitung vorgegangen ist) in
 
-            /media/hdd/piconloader/qhourly
+        /media/hdd/piconloader/qhourly
 
-        wobei 'qhourly' für 'quarter-hourly' steht. Dort muss nun für BlubbTV
-        das Unterverzeichnis für 21:00 h erstellt werden.
+    wobei 'qhourly' für 'quarter-hourly' steht. Dort muss nun für BlubbTV das
+    Unterverzeichnis für 21:00 h erstellt werden.
 
-            mkdir -p /media/hdd/piconloader/qhourly/21-00
+        mkdir -p /media/hdd/piconloader/qhourly/21-00
 
-        Achten Sie jedoch darauf, dass Stunde und Minute im Verzeichnisnamen
-        mit einem Bindestrich und nicht mit einem Doppelpunkt getrennt sind.
-        Somit kann man den PiconLoader samt Unterverzeichnissen auch auf ein
-        Windows-System wegsichern (Doppelpunkte in Datei- oder Verzeichnisna-
-        men sind bei den Windows-Dateisystemen wie FAT32 und NTFS nicht mög-
-        lich).
+    Achten Sie jedoch darauf, dass Stunde und Minute im Verzeichnisnamen mit
+    einem Bindestrich und nicht mit einem Doppelpunkt getrennt sind. Somit
+    kann man den PiconLoader samt Unterverzeichnissen auch auf ein Windows-
+    System wegsichern (Doppelpunkte in Datei- oder Verzeichnisnamen sind bei
+    den Windows-Dateisystemen wie FAT32 und NTFS nicht möglich).
 
-        Kopieren Sie dann das BlubbTV Picon in das soeben angelegte Verzeich-
-        nis, also nach
+    Kopieren Sie dann das BlubbTV Picon in das soeben angelegte Verzeichnis,
+    also nach
 
-            /media/hdd/piconloader/qhourly/21-00
+        /media/hdd/piconloader/qhourly/21-00
 
-        Nun wird das Verzeichnis für 05:45 h benötigt, damit BlubbTV wie-
-        der zu BlahTV wird:
+    Nun wird das Verzeichnis für 05:45 h benötigt, damit BlubbTV wieder zu
+    BlahTV wird:
 
-            mkdir -p /media/hdd/piconloader/qhourly/05-45
+        mkdir -p /media/hdd/piconloader/qhourly/05-45
 
-        Dort muss dann das entsprechende Picon für BlahTV abgelegt werden.
+    Dort muss dann das entsprechende Picon für BlahTV abgelegt werden.
 
-        Das ist im Prinzip schon alles. Wichtig ist nur (logischerweise), dass
-        beide Dateien den gleichen Namen haben, im Fall von BlahTV
+    Das ist im Prinzip schon alles. Wichtig ist nur (logischerweise), dass
+    beide Dateien den gleichen Namen haben, im Fall von BlahTV
 
-            1_0_1_7008_436_1_C0000X_0_0_0.png
+        1_0_1_7008_436_1_C0000X_0_0_0.png
 
-         also sieht die Verzeichnisstruktur wie folgt aus:
+     also sieht die Verzeichnisstruktur wie folgt aus:
 
-            (...)/qhourly/05-45/1_0_1_7008_436_1_C0000X_0_0_0.png
-            (...)/qhourly/21-00/1_0_1_7008_436_1_C0000X_0_0_0.png
+        (...)/qhourly/05-45/1_0_1_7008_436_1_C0000X_0_0_0.png
+        (...)/qhourly/21-00/1_0_1_7008_436_1_C0000X_0_0_0.png
 
-        Da die Dateien in einem unterschiedlichen Verzeichnis liegen, kommen
-        diese sich logischerweise nicht in die Quere.
+    Da die Dateien in einem unterschiedlichen Verzeichnis liegen, kommen diese
+    sich logischerweise nicht in die Quere.
 
 5. Picons je nach Monat austauschen
 
