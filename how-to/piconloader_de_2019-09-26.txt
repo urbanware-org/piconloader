@@ -1,5 +1,5 @@
 ﻿+----------------------------------------------------------------------------+
-|   ____  _                 _                    _                           |
+|   ____  _                 _                    _              (2019-09-26) |
 |  |  _ \(_) ___ ___  _ __ | |    ___   __ _  __| | ___ _ __                 |
 |  | |_) | |/ __/ _ \| '_ \| |   / _ \ / _` |/ _` |/ _ \ '__|                |
 |  |  __/| | (_| (_) | | | | |__| (_) | (_| | (_| |  __/ |                   |
@@ -25,13 +25,13 @@ Inhalt:
     ob es denn möglich sei dafür zu sorgen, dass das entsprechende Picon zum
     Sender zeitgesteuert angezeigt wird.
 
-    Das Skript wurde auf einem "Vu+ Duo2" Receiver entwickelt, könnte jedoch
+    Das Skript wurde auf einem Vu+ Duo2-Receiver entwickelt, könnte jedoch
     auch auf verwandten Systemen laufen, aber das habe ich nicht getestet. Der
     Code dahinter ist nicht gerade der schönste, aber er funktioniert und kann
-    logischerweise noch verbessert sowie angepasst werden.
+    logischerweise noch verbessert sowie erweitert werden.
 
     Das PiconLoader-Projekt wurde unter der MIT-Lizenz veröffentlicht. Diese
-    kann direkt im Skript oder unter
+    kann direkt in der Datei 'LICENSE.md' oder unter
 
         https://opensource.org/licenses/MIT
 
@@ -39,8 +39,8 @@ Inhalt:
 
     Für die Installation und Einrichtung sind einige Vorkenntnisse notwendig.
     Wer dieses Projekt verwenden möchte sollte die Grundlagen von Linux sowie
-    der Shell kennen und in der Lage sein, mit dem "vi"-Editor Dateien zu edi-
-    tieren.
+    der Shell kennen und in der Lage sein, Dateien mit dem 'vi'-Editor (nicht
+    Vim, da auf dem System nicht verfügbar) zu editieren.
 
     Ich möchte noch hinzufügen, dass man auf der Kommandozeile durch die Ein-
     gabe falscher Befehle bzw. Parametern Schaden anrichten kann, von daher
@@ -50,42 +50,52 @@ Inhalt:
     Die entsprechenden Namen (die sog. "Kanalreferenzen") für die jeweiligen
     Picons können mit dem Programm dreamboxEDIT ermittelt bzw. ausgelesen
     werden.
+    
+    Fragen zum Receiver selbst oder zur dreamboxEDIT-Software kann ich nicht
+    beantworten, da ich weder ein solches Gerät besitze noch diese Software
+    selbst verwendet habe.
 
 2. Installation
 
     2.1 Archiv auf die Festplatte im Receiver kopieren
 
-        Zunächst muss das Archiv, in dem sich der PiconLoader befindet, auf
-        den Receiver kopiert werden.
+        Zunächst muss das TAR-Archiv, in dem sich der PiconLoader befindet,
+        auf den Receiver kopiert werden.
 
-        Hier in der Readme-Datei wird das Archiv einfach nur "piconldr.tar"
-        genannt, das eigentliche Archiv hat noch die Versionsnummer im Datei-
-        namen, zum Beispiel "piconloader-1.0.3.tar". Somit muss die Readme-
-        Datei bei einer neuen Version nicht nochmal angepasst werden.
+        Hier in der Anleitung wird das Archiv von Version 1.0.3 verwendet. Die
+        Versionsnummer ist ein Teil des Dateinamens. Wird eine andere Version
+        installiert muss der Dateiname in den Befehlen entsprechend angepasst
+        werden.
 
         2.1.1 Windows-Systeme
 
-            Die Datei kann mit dem kostenlosen PSCP-Tool auf den Receiver
-            kopiert werden:
+            Die Datei kann mit dem kostenlosen PSCP-Tool auf den Receiver ko-
+            piert werden:
 
                 https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
-            Nehmen wir an, das "piconldr.tar" Archiv liegt in "C:\vu" und der
-            Receiver hat die IP-Adresse 192.168.1.1, dann müsste der Befehl
-            wie folgt aussehen:
+            Nehmen wir an, das 'piconloader-1.0.3.tar' Archiv liegt im Ver-
+            zeichnis 'C:\vu' auf der lokalen Festplatte und der Receiver hat
+            die IP-Adresse 192.168.1.1, dann müsste der Befehl wie folgt aus-
+            sehen. Dieser muss in einer Zeile und ohne den Unterstrich ge-
+            schrieben werden.
 
-                pscp.exe -scp C:\vu\piconldr.tar root@192.168.1.1:/media/hdd/
+                pscp.exe -scp C:\vu\piconloader-1.0.3.tar _
+                              root@192.168.1.1:/media/hdd/
 
         2.1.2 Unixoide Systeme (Linux, BSD, MacOSX)
 
-            Diese Systeme stellen i. d. R. von Haus aus das "scp" Tool zur
+            Diese Systeme stellen i. d. R. von Haus aus das 'scp' Tool zur
             Verfügung, mit dem die Datei übertragen werden kann.
 
-            Nehmen wir an, das "piconldr.tar" Archiv liegt in "/home/user/"
-            und der Receiver hat die IP-Adresse 192.168.1.1, dann müsste der
-            Befehl wie folgt aussehen:
+            Nehmen wir an, das 'piconloader-1.0.3.tar' Archiv liegt in dem
+            Verzeichnis '/home/user/' auf der lokalen Festplatte und der Re-
+            ceiver hat die IP-Adresse 192.168.1.1, dann müsste der Befehl wie
+            folgt aussehen. Dieser kann auch in einer Zeile ohne Backslash
+            eingegeben werden.
 
-                scp /home/user/piconldr.tar root@192.168.1.1:/media/hdd/
+                scp /home/user/piconloader-1.0.3.tar \
+                    root@192.168.1.1:/media/hdd/
 
     2.2 SSH-Verbindung mit dem Receiver herstellen
 
@@ -94,14 +104,14 @@ Inhalt:
 
         2.2.1 Windows-Systeme
 
-            Unter Windows ist das ebenfalls kostenlose Tool PuTTY erforder-
-            lich, um eine solche Verbindung herzustellen:
+            Unter Windows ist das ebenfalls kostenlose Tool PuTTY verfügbar,
+            um eine solche Verbindung herzustellen:
 
-                www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+                https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
         2.2.2 Unixoide Systeme (Linux, BSD, MacOSX)
 
-            Diese Systeme stellen i. d. R. von Haus aus das "ssh" Tool zur
+            Diese Systeme stellen i. d. R. von Haus aus das 'ssh' Tool zur
             Verfügung, mit dem die Verbindung hergestellt werden kann. In die-
             sem Beispiel:
 
@@ -109,23 +119,24 @@ Inhalt:
 
     2.3 Archiv auf dem Receiver entpacken
 
-        Wenn dann die SSH-Verbindung steht, muss das Archiv entpackt werden.
-        Dazu muss zunächst auf die Festplatte gewechselt werden:
+        Wenn dann die SSH-Verbindung steht, ist es notwendig, das Archiv auf
+        der Festplatte des Receivers zu entpacken. Dazu muss zunächst in das
+        entsprechende Verzeichnis gewechselt werden:
 
             cd /media/hdd/
 
         Dort liegt das kopierte Archiv. Mit dem folgenden Befehl wird dieses
         entpackt.
 
-            tar xvf piconldr.tar
+            tar xvf piconloader-1.0.3.tar
 
-        Danach existiert das Verzeichnis "/media/hdd/piconloader", welches die
+        Danach existiert das Verzeichnis '/media/hdd/piconloader', welches die
         erforderlichen Daten enthält (zunächst nur das eigentliche Skript und
         leere Unterordner, die Picons folgen später).
 
         Das Archiv selbst kann nun wieder gelöscht werden.
 
-            rm piconldr.tar
+            rm piconloader-1.0.3.tar
 
     2.4 Skript als ausführbar markieren
 
@@ -152,7 +163,7 @@ Inhalt:
     ber ein Weihnachts-Logo verwendet.
 
     Sämtliche Picons, die standardmäßig verwendet werden liegen im Verzeichnis
-    "/usr/share/enigma2/picon". An diesen muss nichts verändert werden.
+    '/usr/share/enigma2/picon'. An diesen muss nichts verändert werden.
 
     Man hinterlegt sowohl (als Beispiel) das BlahTV als auch das BlubbTV Sen-
     er-Logo in einem bestimmten Unterverzeichnis. Das Skript ermittelt anhand
@@ -198,7 +209,7 @@ Inhalt:
 
             /media/hdd/piconloader/qhourly
 
-        wobei "qhourly" für "quarter-hourly" steht. Dort muss nun für BlubbTV
+        wobei 'qhourly' für 'quarter-hourly' steht. Dort muss nun für BlubbTV
         das Unterverzeichnis für 21:00 h erstellt werden.
 
             mkdir -p /media/hdd/piconloader/qhourly/21-00
@@ -265,7 +276,7 @@ Inhalt:
     Damit das Skript beim Starten des Receivers und auch zu den konfigurierten
     Zeiten die Picons tauscht, muss ein Cronjob eingerichtet werden.
 
-    Dazu muss die Datei "/etc/cron/crontab/root" editiert werden:
+    Dazu muss die Datei '/etc/cron/crontab/root' editiert werden:
 
         vi /etc/cron/crontabs/root
 
@@ -288,12 +299,11 @@ Inhalt:
 
     Normalerweise löst man das Ausführen eines Skripts beim Hochfahren über
     Init-Skripte, jedoch hat dies bisher nicht funktioniert (symbolischer
-    Link in "/etc/init.d/" auf das PiconLoader-Skript), da muss man bei Gele-
-    genheit nochmal nachhaken.
+    Link in '/etc/init.d/' auf das PiconLoader-Skript), da müsste man bei
+    Gelegenheit nochmal nachhaken.
 
 7. Bekannte Nebeneffekte
 
       Wird beim Ansehen eines Senders, bei dem sich das Picon ändern soll,
       noch das vorherige Picon angezeigt, dann kann dies durch einen Sender-
       wechsel behoben werden.
-
