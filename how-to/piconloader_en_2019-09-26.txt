@@ -20,120 +20,120 @@ Contents:
     I wrote this script for a good friend of mine who asked me, if it was
     possible to automatically change the picons of the channels at a certain
     time.
-    
+
     It was developed on a Vu+ Duo2 satellite receiver, but may also work on
     other devices. However, I never tested that. The code behind the script is
     not that beautiful, but works. Of course, it still can be improved and
     also enhanced.
-    
+
     The script was distributed under the MIT License, which can be found
     inside the 'LICENSE.md' file or on the following website:
-    
+
         https://opensource.org/licenses/MIT
 
     Installing and configuring the script, requires fundamental experience
     with Linux, its shell and 'vi' (not Vim, as it is not available on the
     system) for editing files.
-    
+
     Notice that improper use of the command-line (e.g. modifying files inside
     system directories) will corrupt your system! Due to this, you have to be
     careful and understand what you're doing ("think before you type").
-    
+
     The corresponding picon names for the channels can be determined with the
     dreamboxEDIT tool.
-    
+
     Please do not ask me anything about the receiver (as I don't have one
     myself) or the dreamboxEDIT software.
-    
+
 2. Installation
 
     2.1 Copying the archive file to the receiver
-    
+
         First of all, the TAR archive containing the PiconLoader must be
         copied to the receiver.
-                
+
         The following instructions use the archive of version 1.0.3. The
         version number is part of the archive file name. When installing a
         newer version, the file name in the commands must be adjusted.
-        
+
         2.1.1 Windows systems
-        
+
             The archive file can be transferred to the receiver using the free
             PSCP tool which can be downloaded here:
-            
+
                 https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
-                
+
             Let's assume the archive 'piconloader-1.0.3.tar' is located inside
             'C:\vu' on the local hard disk and the receiver has the IP address
             192.168.1.1. The corresponding command would look like as follows.
             It must be written in a single line without the underscore.
-            
+
                 pscp.exe -scp C:\vu\piconloader-1.0.3.tar _
                               root@192.168.1.1:/media/hdd/
-            
+
         2.1.2 Unix-like systems (Linux, BSD, MacOSX)
-        
+
             Usually, these operating systems already include the 'scp' tool
             for transferring files.
-            
+
             Let's assume the archive 'piconloader-1.0.3.tar' is located inside
             '/home/user/' on the local hard disk and the receiver has the IP
             address 192.168.1.1. The corresponding command would look like as
             follows. It can also be written in a single without the backslash.
-            
+
                 scp /home/user/piconloader-1.0.3.tar \
                     root@192.168.1.1:/media/hdd/
-            
+
     2.2 Connect to the device via SSH
-    
+
         After the archive has been copied to the hard disk of the receiver,
         the next step is to establish an SSH connection to the device.
-        
+
         2.2.1 Windows systems
-        
+
             You may use the free tool called PuTTY, which can also be
             downloaded here:
-            
+
                 https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
-        
+
         2.2.2 Unix-like systems (Linux, BSD, MacOSX)
-        
+
             Usually, these operating systems already include the 'ssh' tool
             for establishing SSH connections.
-            
+
                 ssh root@192.168.1.1
-            
+
     2.3 Extracting the archive on the receiver
-    
+
         After transferring the file, the archive must be extracted on the hard
         disk of the receiver. Switch to the corresponding directory:
-        
+
             cd /media/hdd
-            
+
         Inside this directory you can find the transferred archive and extract
         it as follows.
-        
+
             tar xvf piconloader-1.0.3.tar
-            
+
         After that, the directory '/media/hdd/piconloader' will be created
         which contains the actual as well as some empty sub-directories so
         far.
-        
+
         The archive file can now be deleted again:
-        
+
             rm piconloader-1.0.3.tar
-            
+
     2.4 Setting the executable flag
-    
+
         In order to use the script, it must be executable. This should already
         be the case, but if it is not (for whatever reason) you can set the
         executable flag manually as mentioned below.
-        
+
         If the script already is executable and you run following command
         anyway, it will have no effect.
-        
+
             chmod +x ./piconloader/piconloader.sh
-    
+
     2.5 Adding the required cronjob
 
         The PiconLoader script is being triggered every minute using a cronjob

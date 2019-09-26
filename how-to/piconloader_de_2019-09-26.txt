@@ -50,7 +50,7 @@ Inhalt:
     Die entsprechenden Namen (die sog. "Kanalreferenzen") für die jeweiligen
     Picons können mit dem Programm dreamboxEDIT ermittelt bzw. ausgelesen
     werden.
-    
+
     Fragen zum Receiver selbst oder zur dreamboxEDIT-Software kann ich nicht
     beantworten, da ich weder ein solches Gerät besitze noch diese Software
     selbst verwendet habe.
@@ -304,6 +304,7 @@ Inhalt:
 
 7. Bekannte Nebeneffekte
 
-      Wird beim Ansehen eines Senders, bei dem sich das Picon ändern soll,
-      noch das vorherige Picon angezeigt, dann kann dies durch einen Sender-
-      wechsel behoben werden.
+    Wird beim Ansehen eines Senders, bei dem sich das Picon ändern soll, noch
+    das vorherige Picon angezeigt, dann kann dies durch einen Senderwechsel
+    behoben werden.
+
