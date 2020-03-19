@@ -182,7 +182,7 @@ Contents:
         cd /media/hdd/piconloader/
 
     and create the two directories for both times inside the 'qhourly' sub-
-    directory as follows. Notice that you have to use dashes instead of
+    directory as follows. Notice that you have to use hyphens instead of
     colons, as colons are not supported in file or directory names on FAT32
     and NTFS file systems.
 
@@ -222,4 +222,3 @@ Contents:
     the following:
 
         ./monthly/01
-
