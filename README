@@ -33,7 +33,7 @@ README (PiconLoader)
 
         You should also be aware of the fact that running commands on the
         shell of the device can lead to data loss, system crashes or even
-        cause that the device does not boot anymore.
+        cause that the device does not boot anymore. Use at own risk.
 
     Installation
 
