@@ -27,7 +27,7 @@ Contents:
     also enhanced.
 
     The script was distributed under the MIT License, which can be found
-    inside the 'LICENSE.md' file or on the following website:
+    inside the 'LICENSE' file or on the following website:
 
         https://opensource.org/licenses/MIT
 

@@ -31,7 +31,7 @@ Inhalt:
     logischerweise noch verbessert sowie erweitert werden.
 
     Das PiconLoader-Projekt wurde unter der MIT-Lizenz veröffentlicht. Diese
-    kann direkt in der Datei 'LICENSE.md' oder unter
+    kann direkt in der Datei 'LICENSE' oder unter
 
         https://opensource.org/licenses/MIT
 
