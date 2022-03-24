@@ -42,8 +42,9 @@ Contents:
     The corresponding picon names for the channels can be determined with the
     dreamboxEDIT tool.
 
-    Please do not ask me anything about the receiver (as I don't have one
-    myself) or the dreamboxEDIT software.
+    Please do not ask me any questions about the satellite receiver itself or
+    the dreamboxEDIT software, as I neither own such a device nor have I used
+    this software myself.
 
 2. Installation
 
