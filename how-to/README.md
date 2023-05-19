@@ -1,9 +1,12 @@
 # How-to
 
-The original how-to was written in German language, as the *PiconLoader* project was initially uploaded into a forum for the satellite receiver.
+## Current documentation
 
-For the *GitHub* project the instructions have been translated to English, but not one-to-one. However, the documentation files should contain all relevant information.
+The documentation is available in the following languages:
 
-*   `piconloader_de_2022-01-17.txt` :de: German
-*   `piconloader_en_2019-03-06.txt` :us: English
-*   `piconloader_en_2022-03-24.txt` :us: English (revised version)
+*   `piconloader_de.md` :de: German
+*   `piconloader_en.md` :us: English
+
+# Archived documentation
+
+The original how-to files in plain text files can be found inside the `archive` sub-directory. Initially the documentation was written in German language, as the *PiconLoader* project was first uploaded into a German forum for the satellite receiver. Later, those instructions have been translated to English, but not one-to-one.
