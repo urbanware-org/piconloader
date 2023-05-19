@@ -45,7 +45,7 @@ Wenn sich das Archiv im Verzeichnis `C:\vu` befindet und der Receiver die IP-Adr
 pscp.exe -scp C:\vu\piconloader-1.0.3.tar root@192.168.1.1:/media/hdd/
 ```
 
-Falls der Pfad Leerzeichen enthält muss dieser in Anführungszeichen (`"`)stehen:
+Falls der Pfad Leerzeichen enthält muss dieser in Anführungszeichen (`"`) stehen:
 
 ```
 pscp.exe -scp "C:\Users\John Doe\Downloads\piconloader-1.0.3.tar" root@192.168.1.1:/media/hdd/
