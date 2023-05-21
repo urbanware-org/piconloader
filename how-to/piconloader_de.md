@@ -1,6 +1,6 @@
 # *PiconLoader*
 
-**Table of contents**
+**Inhaltsverzeichnis**
 *   [Vorwort](#vorwort)
 *   [Installation](#installation)
 *   [Verwendung](#verwendung)
